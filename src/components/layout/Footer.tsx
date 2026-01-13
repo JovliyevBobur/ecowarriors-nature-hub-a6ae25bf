@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
-import { Leaf, Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import ecoLogo from "@/assets/eco-logo.png";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-eco-forest text-primary-foreground">
       <div className="container mx-auto px-4 py-12 md:py-16">
@@ -14,33 +17,32 @@ const Footer = () => {
               <span className="text-xl font-bold">EcoWarriors</span>
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
-              Tabiatni muhofaza qilish va ekologik barqarorlikni ta'minlash yo'lida
-              birga ishlaymiz. Kelajak avlodlar uchun yashil muhit yaratamiz.
+              {t("footer.description")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Tezkor havolalar</h4>
+            <h4 className="text-lg font-semibold mb-4">{t("footer.quickLinks")}</h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
-                  Biz haqimizda
+                  {t("nav.about")}
                 </Link>
               </li>
               <li>
                 <Link to="/news" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
-                  Yangiliklar
+                  {t("nav.news")}
                 </Link>
               </li>
               <li>
                 <Link to="/events" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
-                  Tadbirlar
+                  {t("nav.events")}
                 </Link>
               </li>
               <li>
                 <Link to="/gallery" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
-                  Galereya
+                  {t("nav.gallery")}
                 </Link>
               </li>
             </ul>
@@ -48,7 +50,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Aloqa</h4>
+            <h4 className="text-lg font-semibold mb-4">{t("footer.contactUs")}</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-sm text-primary-foreground/80">
                 <MapPin className="h-4 w-4 flex-shrink-0" />
@@ -67,7 +69,7 @@ const Footer = () => {
 
           {/* Social Media */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Ijtimoiy tarmoqlar</h4>
+            <h4 className="text-lg font-semibold mb-4">{t("footer.followUs")}</h4>
             <div className="flex gap-3">
               <a
                 href="#"
@@ -93,7 +95,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-primary-foreground/20">
           <p className="text-center text-sm text-primary-foreground/70">
-            © {new Date().getFullYear()} EcoWarriors. Barcha huquqlar himoyalangan.
+            © {new Date().getFullYear()} EcoWarriors. {t("footer.rights")}
           </p>
         </div>
       </div>
