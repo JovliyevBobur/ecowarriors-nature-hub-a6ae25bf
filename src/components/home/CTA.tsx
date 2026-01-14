@@ -3,30 +3,53 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import heroImage from "@/assets/hero-nature.jpg";
 
 const CTA = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-nature relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-gradient-primary relative overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroImage})` }}
+      />
+      <div className="absolute inset-0 bg-background/60 backdrop-blur-md" />
+      
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div 
+          className="absolute inset-0" 
+          style={{ 
+            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0px)', 
+            backgroundSize: '32px 32px' 
+          }}
+        />
+      </div>
+      
+      {/* Floating elements */}
+      <motion.div 
+        className="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"
+        animate={{ x: [0, 20, 0], y: [0, -20, 0] }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div 
+        className="absolute bottom-20 right-10 w-48 h-48 bg-white/10 rounded-full blur-2xl"
+        animate={{ x: [0, -20, 0], y: [0, 20, 0] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
+
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
           className="max-w-3xl mx-auto text-center"
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.div 
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-foreground/20 mb-6"
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            <Leaf className="h-8 w-8 text-primary-foreground" />
-          </motion.div>
-          
           <motion.h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-primary-foreground mb-6"
+            className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 drop-shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -36,7 +59,7 @@ const CTA = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-sans"
+            className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -46,41 +69,24 @@ const CTA = () => {
           </motion.p>
           
           <motion.div 
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-col sm:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            <Button asChild size="lg" variant="secondary" className="gap-2 hover:scale-105 transition-transform">
+            <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 shadow-lg h-12 rounded-lg px-8 btn-hover">
               <Link to="/contact">
                 {t("cta.joinButton")}
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 ml-2" />
               </Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:scale-105 transition-transform"
-            >
+            <Button asChild size="lg" className="bg-foreground text-background border-2 border-foreground hover:bg-foreground/90 shadow-lg h-12 rounded-lg px-8 btn-hover">
               <Link to="/about">{t("hero.learnMore")}</Link>
             </Button>
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Decorative Elements */}
-      <motion.div 
-        className="absolute top-0 left-0 w-64 h-64 bg-primary-foreground/10 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.2, 1], x: [0, 20, 0], y: [0, -20, 0] }}
-        transition={{ duration: 8, repeat: Infinity }}
-      />
-      <motion.div 
-        className="absolute bottom-0 right-0 w-96 h-96 bg-primary-foreground/10 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.3, 1], x: [0, -30, 0], y: [0, 30, 0] }}
-        transition={{ duration: 10, repeat: Infinity }}
-      />
     </section>
   );
 };

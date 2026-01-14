@@ -17,116 +17,131 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[90vh] flex items-center bg-gradient-hero overflow-hidden">
-      <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div 
+          className="absolute inset-0" 
+          style={{ 
+            backgroundImage: 'radial-gradient(circle at 1px 1px, currentcolor 1px, transparent 0px)', 
+            backgroundSize: '40px 40px' 
+          }}
+        />
+      </div>
+      
+      {/* Floating Blobs */}
+      <motion.div 
+        className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
+        animate={{ y: [-20, 20, -20] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div 
+        className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
+        animate={{ y: [20, -20, 20] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="container mx-auto px-4 py-12 lg:py-20 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
           <motion.div 
-            className="space-y-8"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            className="space-y-6 text-center lg:text-left"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <motion.div 
-              className="inline-flex items-center gap-2 px-4 py-2 bg-secondary rounded-full"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Leaf className="h-4 w-4 text-primary animate-pulse" />
-              <span className="text-sm font-medium text-foreground">Tabiatni asraymiz</span>
-            </motion.div>
-
             <motion.h1 
-              className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground leading-tight"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
             >
-              {t("hero.title").split(" ").slice(0, -1).join(" ")}{" "}
-              <span className="text-gradient-nature">{t("hero.title").split(" ").slice(-1)}</span>
+              <span>Yashil </span>
+              <span className="text-gradient">kelajak </span>
+              <span>uchun birga</span>
             </motion.h1>
 
             <motion.p 
-              className="text-lg text-muted-foreground max-w-lg leading-relaxed font-sans"
+              className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
             >
               {t("hero.subtitle")}
             </motion.p>
 
             <motion.div 
-              className="flex flex-wrap gap-4"
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
             >
-              <Button asChild size="lg" className="gap-2 hover:scale-105 transition-transform">
+              <Button asChild size="lg" className="gap-2 bg-gradient-primary shadow-lg hover:shadow-xl btn-hover h-12 rounded-lg px-8">
                 <Link to="/contact">
                   {t("hero.joinUs")}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="hover:scale-105 transition-transform">
+              <Button asChild variant="outline" size="lg" className="border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground h-12 rounded-lg px-8 btn-hover">
                 <Link to="/about">{t("hero.learnMore")}</Link>
               </Button>
             </motion.div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8">
+            <motion.div 
+              className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
-                  className="bg-card rounded-xl p-4 shadow-card text-center hover:shadow-elevated transition-all duration-300 group"
-                  initial={{ opacity: 0, y: 30 }}
+                  className="text-center p-4 rounded-xl bg-card shadow-sm border border-border/50"
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
+                  transition={{ delay: 0.6 + index * 0.1, duration: 0.4 }}
                   whileHover={{ y: -5, scale: 1.02 }}
                 >
-                  <stat.icon className="h-6 w-6 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
-                  <div className="text-2xl font-mono font-bold text-foreground">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground font-sans">{stat.label}</div>
+                  <stat.icon className="h-5 w-5 text-primary mx-auto mb-2" />
+                  <div className="font-display font-bold text-2xl text-foreground">{stat.value}</div>
+                  <div className="text-xs text-muted-foreground">{stat.label}</div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Image */}
           <motion.div 
             className="relative"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <motion.div 
-              className="relative rounded-3xl overflow-hidden shadow-elevated"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              <img
+            <div className="relative z-10">
+              <div className="absolute -inset-4 bg-gradient-primary rounded-3xl opacity-20 blur-2xl" />
+              <motion.img
                 src={heroImage}
-                alt="Tabiat manzarasi"
-                className="w-full h-[400px] md:h-[500px] object-cover"
+                alt="EcoWarriors"
+                className="relative rounded-3xl shadow-2xl w-full h-auto object-cover"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-eco-forest/30 to-transparent" />
-            </motion.div>
+            </div>
+            
             {/* Decorative Elements */}
             <motion.div 
-              className="absolute -top-4 -right-4 w-24 h-24 bg-eco-sun rounded-full opacity-20 blur-2xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
-              transition={{ duration: 3, repeat: Infinity }}
+              className="absolute -top-8 -right-8 w-24 h-24 border-4 border-primary/20 rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             />
             <motion.div 
-              className="absolute -bottom-6 -left-6 w-32 h-32 bg-primary rounded-full opacity-20 blur-3xl"
-              animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 4, repeat: Infinity }}
+              className="absolute -bottom-4 -left-4 w-16 h-16 bg-accent/20 rounded-xl"
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 3, repeat: Infinity }}
             />
           </motion.div>
         </div>
       </div>
-
-      {/* Background Decoration */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-secondary/50 to-transparent -z-10" />
     </section>
   );
 };

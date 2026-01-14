@@ -26,19 +26,19 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border/50">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <motion.img 
               src={ecoLogo} 
               alt="EcoWarriors" 
-              className="h-10 w-10 md:h-12 md:w-12"
+              className="h-10 w-10 lg:h-12 lg:w-12"
               whileHover={{ scale: 1.05, rotate: 5 }}
               transition={{ duration: 0.2 }}
             />
-            <span className="text-lg md:text-xl font-display font-bold text-foreground group-hover:text-primary transition-colors">
+            <span className="text-lg lg:text-xl font-display font-bold text-foreground group-hover:text-primary transition-colors">
               EcoWarriors
             </span>
           </Link>
@@ -54,9 +54,9 @@ const Header = () => {
               >
                 <Link
                   to={item.path}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                     location.pathname === item.path
-                      ? "bg-primary text-primary-foreground shadow-soft"
+                      ? "bg-gradient-primary text-primary-foreground shadow-soft"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
                 >
@@ -72,7 +72,7 @@ const Header = () => {
             <ThemeSwitcher />
             {isAdmin && (
               <Link to="/admin">
-                <Button variant="outline" size="sm" className="gap-2 hover:scale-105 transition-transform">
+                <Button variant="outline" size="sm" className="gap-2 btn-hover">
                   <Shield className="h-4 w-4" />
                   {t("nav.admin")}
                 </Button>
@@ -88,7 +88,7 @@ const Header = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="hover:scale-105 transition-transform"
+              className="btn-hover"
             >
               <AnimatePresence mode="wait">
                 {isMenuOpen ? (
@@ -97,6 +97,7 @@ const Header = () => {
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
                   >
                     <X className="h-6 w-6" />
                   </motion.div>
@@ -106,6 +107,7 @@ const Header = () => {
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
                   >
                     <Menu className="h-6 w-6" />
                   </motion.div>
@@ -119,7 +121,7 @@ const Header = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.nav 
-              className="lg:hidden py-4 border-t border-border"
+              className="lg:hidden py-4 border-t border-border/50"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -138,7 +140,7 @@ const Header = () => {
                       onClick={() => setIsMenuOpen(false)}
                       className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block ${
                         location.pathname === item.path
-                          ? "bg-primary text-primary-foreground"
+                          ? "bg-gradient-primary text-primary-foreground"
                           : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                       }`}
                     >
