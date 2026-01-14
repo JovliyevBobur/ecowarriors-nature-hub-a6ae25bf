@@ -1,46 +1,42 @@
 import { useTheme } from '@/contexts/ThemeContext';
-import { useTranslation } from 'react-i18next';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { Moon, Sun, Monitor } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const ThemeSwitcher = () => {
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const { t } = useTranslation();
-
-  const themes = [
-    { value: 'light' as const, icon: Sun, label: t('theme.light') },
-    { value: 'dark' as const, icon: Moon, label: t('theme.dark') },
-    { value: 'system' as const, icon: Monitor, label: t('theme.system') },
-  ];
-
-  const CurrentIcon = resolvedTheme === 'dark' ? Moon : Sun;
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <CurrentIcon className="h-5 w-5" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {themes.map(({ value, icon: Icon, label }) => (
-          <DropdownMenuItem
-            key={value}
-            onClick={() => setTheme(value)}
-            className={theme === value ? 'bg-primary/10' : ''}
+    <Button 
+      variant="ghost" 
+      size="icon" 
+      onClick={toggleTheme}
+      className="relative overflow-hidden hover:scale-105 transition-transform"
+    >
+      <AnimatePresence mode="wait">
+        {resolvedTheme === 'dark' ? (
+          <motion.div
+            key="moon"
+            initial={{ rotate: -90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: 90, opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
-            <Icon className="mr-2 h-4 w-4" />
-            {label}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+            <Moon className="h-5 w-5" />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="sun"
+            initial={{ rotate: 90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: -90, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Sun className="h-5 w-5" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   );
 };

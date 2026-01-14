@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'light' | 'dark' | 'system';
+type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
+  resolvedTheme: Theme;
   setTheme: (theme: Theme) => void;
-  resolvedTheme: 'light' | 'dark';
+  toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -13,48 +14,29 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
     const saved = localStorage.getItem('theme') as Theme;
-    return saved || 'system';
+    return saved === 'dark' ? 'dark' : 'light';
   });
 
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+  const [resolvedTheme, setResolvedTheme] = useState<Theme>(theme);
 
   useEffect(() => {
     const root = window.document.documentElement;
-    
-    const updateTheme = () => {
-      let effectiveTheme: 'light' | 'dark';
-      
-      if (theme === 'system') {
-        effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      } else {
-        effectiveTheme = theme;
-      }
-      
-      root.classList.remove('light', 'dark');
-      root.classList.add(effectiveTheme);
-      setResolvedTheme(effectiveTheme);
-    };
-
-    updateTheme();
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      if (theme === 'system') {
-        updateTheme();
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    root.classList.remove('light', 'dark');
+    root.classList.add(theme);
+    setResolvedTheme(theme);
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    localStorage.setItem('theme', newTheme);
+  };
+
+  const toggleTheme = () => {
+    setThemeState(prev => prev === 'light' ? 'dark' : 'light');
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
