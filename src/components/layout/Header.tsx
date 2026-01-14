@@ -6,13 +6,14 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
+import { motion, AnimatePresence } from "framer-motion";
 import ecoLogo from "@/assets/eco-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
-  const { user, isAdmin } = useAuth();
+  const { isAdmin } = useAuth();
 
   const navItems = [
     { name: t("nav.home"), path: "/" },
@@ -29,27 +30,39 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <img src={ecoLogo} alt="EcoWarriors" className="h-10 w-10 md:h-12 md:w-12" />
-            <span className="text-lg md:text-xl font-bold text-foreground">
+          <Link to="/" className="flex items-center gap-3 group">
+            <motion.img 
+              src={ecoLogo} 
+              alt="EcoWarriors" 
+              className="h-10 w-10 md:h-12 md:w-12"
+              whileHover={{ scale: 1.05, rotate: 5 }}
+              transition={{ duration: 0.2 }}
+            />
+            <span className="text-lg md:text-xl font-display font-bold text-foreground group-hover:text-primary transition-colors">
               EcoWarriors
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navItems.map((item) => (
-              <Link
+            {navItems.map((item, index) => (
+              <motion.div
                 key={item.path}
-                to={item.path}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  location.pathname === item.path
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                }`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
               >
-                {item.name}
-              </Link>
+                <Link
+                  to={item.path}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 ${
+                    location.pathname === item.path
+                      ? "bg-primary text-primary-foreground shadow-soft"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </motion.div>
             ))}
           </nav>
 
@@ -59,16 +72,9 @@ const Header = () => {
             <ThemeSwitcher />
             {isAdmin && (
               <Link to="/admin">
-                <Button variant="outline" size="sm" className="gap-2">
+                <Button variant="outline" size="sm" className="gap-2 hover:scale-105 transition-transform">
                   <Shield className="h-4 w-4" />
                   {t("nav.admin")}
-                </Button>
-              </Link>
-            )}
-            {!user && (
-              <Link to="/login">
-                <Button variant="default" size="sm">
-                  Login
                 </Button>
               </Link>
             )}
@@ -82,52 +88,84 @@ const Header = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="hover:scale-105 transition-transform"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <AnimatePresence mode="wait">
+                {isMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                  >
+                    <X className="h-6 w-6" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                  >
+                    <Menu className="h-6 w-6" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="lg:hidden py-4 border-t border-border animate-fade-in">
-            <div className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    location.pathname === item.path
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              {isAdmin && (
-                <Link
-                  to="/admin"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg text-sm font-medium bg-accent text-accent-foreground"
-                >
-                  <Shield className="h-4 w-4 inline mr-2" />
-                  {t("nav.admin")}
-                </Link>
-              )}
-              {!user && (
-                <Link
-                  to="/login"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg text-sm font-medium bg-primary text-primary-foreground"
-                >
-                  Login
-                </Link>
-              )}
-            </div>
-          </nav>
-        )}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.nav 
+              className="lg:hidden py-4 border-t border-border"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex flex-col gap-2">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.path}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <Link
+                      to={item.path}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block ${
+                        location.pathname === item.path
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  </motion.div>
+                ))}
+                {isAdmin && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: navItems.length * 0.05 }}
+                  >
+                    <Link
+                      to="/admin"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="px-4 py-3 rounded-lg text-sm font-medium bg-accent text-accent-foreground flex items-center gap-2"
+                    >
+                      <Shield className="h-4 w-4" />
+                      {t("nav.admin")}
+                    </Link>
+                  </motion.div>
+                )}
+              </div>
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
