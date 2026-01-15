@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       events: {
         Row: {
+          completed: boolean
           created_at: string
           description_en: string | null
           description_ru: string | null
@@ -31,6 +32,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          completed?: boolean
           created_at?: string
           description_en?: string | null
           description_ru?: string | null
@@ -46,6 +48,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          completed?: boolean
           created_at?: string
           description_en?: string | null
           description_ru?: string | null

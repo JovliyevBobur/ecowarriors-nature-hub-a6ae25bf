@@ -4,12 +4,19 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard, Newspaper, Calendar, Image, Users, LogOut, Home } from "lucide-react";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { useTranslation } from "react-i18next";
 import ecoLogo from "@/assets/eco-logo.png";
+import AdminNews from "./AdminNews";
+import AdminEvents from "./AdminEvents";
+import AdminGallery from "./AdminGallery";
+import AdminTeachers from "./AdminTeachers";
+import DashboardHome from "./DashboardHome";
 
 const AdminDashboard = () => {
   const { user, isAdmin, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
@@ -18,7 +25,7 @@ const AdminDashboard = () => {
   }, [user, isAdmin, loading, navigate]);
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Yuklanmoqda...</div>;
+    return <div className="min-h-screen flex items-center justify-center bg-background">{t("common.loading")}</div>;
   }
 
   if (!user || !isAdmin) {
@@ -26,11 +33,11 @@ const AdminDashboard = () => {
   }
 
   const menuItems = [
-    { path: "/admin", icon: LayoutDashboard, label: "Dashboard" },
-    { path: "/admin/news", icon: Newspaper, label: "Yangiliklar" },
-    { path: "/admin/events", icon: Calendar, label: "Tadbirlar" },
-    { path: "/admin/gallery", icon: Image, label: "Galereya" },
-    { path: "/admin/teachers", icon: Users, label: "O'qituvchilar" },
+    { path: "/admin", icon: LayoutDashboard, label: t("admin.dashboard") },
+    { path: "/admin/news", icon: Newspaper, label: t("admin.news") },
+    { path: "/admin/events", icon: Calendar, label: t("admin.events") },
+    { path: "/admin/gallery", icon: Image, label: t("admin.gallery") },
+    { path: "/admin/teachers", icon: Users, label: t("admin.teachers") },
   ];
 
   return (
@@ -63,7 +70,7 @@ const AdminDashboard = () => {
           <Link to="/">
             <Button variant="ghost" className="w-full justify-start gap-3">
               <Home className="h-5 w-5" />
-              Saytga qaytish
+              {t("admin.backToSite")}
             </Button>
           </Link>
           <div className="flex items-center justify-between px-4">
@@ -76,38 +83,17 @@ const AdminDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 overflow-y-auto">
         <Routes>
           <Route index element={<DashboardHome />} />
-          <Route path="news" element={<div className="text-foreground">Yangiliklar CRUD - tez orada</div>} />
-          <Route path="events" element={<div className="text-foreground">Tadbirlar CRUD - tez orada</div>} />
-          <Route path="gallery" element={<div className="text-foreground">Galereya CRUD - tez orada</div>} />
-          <Route path="teachers" element={<div className="text-foreground">O'qituvchilar CRUD - tez orada</div>} />
+          <Route path="news" element={<AdminNews />} />
+          <Route path="events" element={<AdminEvents />} />
+          <Route path="gallery" element={<AdminGallery />} />
+          <Route path="teachers" element={<AdminTeachers />} />
         </Routes>
       </main>
     </div>
   );
 };
-
-const DashboardHome = () => (
-  <div>
-    <h1 className="text-3xl font-display font-bold text-foreground mb-6">Dashboard</h1>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {[
-        { label: "Yangiliklar", count: 0, color: "bg-primary" },
-        { label: "Tadbirlar", count: 0, color: "bg-eco-sky" },
-        { label: "Galereya", count: 0, color: "bg-eco-sun" },
-        { label: "O'qituvchilar", count: 0, color: "bg-eco-moss" },
-      ].map((stat) => (
-        <div key={stat.label} className="bg-card rounded-xl p-6 shadow-card border border-border">
-          <div className={`w-12 h-12 ${stat.color} rounded-lg flex items-center justify-center mb-4`}>
-            <span className="text-primary-foreground font-bold text-xl">{stat.count}</span>
-          </div>
-          <h3 className="text-lg font-semibold text-foreground">{stat.label}</h3>
-        </div>
-      ))}
-    </div>
-  </div>
-);
 
 export default AdminDashboard;
