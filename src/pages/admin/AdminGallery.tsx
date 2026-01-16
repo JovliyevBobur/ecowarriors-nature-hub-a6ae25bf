@@ -11,6 +11,7 @@ import { Plus, Pencil, Trash2, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import type { Tables } from "@/integrations/supabase/types";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 
 type GalleryItem = Tables<"gallery">;
 
@@ -158,19 +159,12 @@ const AdminGallery = () => {
               </div>
 
               <div>
-                <Label htmlFor="image">{t("admin.image")} *</Label>
-                <div className="flex items-center gap-2">
-                  <Input
-                    id="image"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                    required={!editingItem}
-                  />
-                  {editingItem?.image_url && (
-                    <img src={editingItem.image_url} alt="" className="h-10 w-10 object-cover rounded" />
-                  )}
-                </div>
+                <Label>{t("admin.image")} *</Label>
+                <ImageUpload
+                  value={editingItem?.image_url || undefined}
+                  onChange={() => {}}
+                  onFileSelect={setImageFile}
+                />
               </div>
 
               <div className="flex items-center gap-2">

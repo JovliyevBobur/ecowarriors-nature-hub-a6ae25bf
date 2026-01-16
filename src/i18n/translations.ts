@@ -150,6 +150,8 @@ export const translations = {
         events: "Rejalar",
         gallery: "Galereya",
         teachers: "Jamoa",
+        features: "Xususiyatlar",
+        settings: "Sozlamalar",
         addNew: "Yangi qo'shish",
         editItem: "Tahrirlash",
         deleteItem: "O'chirish",
