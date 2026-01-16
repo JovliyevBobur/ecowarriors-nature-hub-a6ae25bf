@@ -3,16 +3,50 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-nature.jpg";
 
+interface HeroSettings {
+  title_uz: string;
+  title_ru: string;
+  title_en: string;
+  subtitle_uz: string;
+  subtitle_ru: string;
+  subtitle_en: string;
+  stats: {
+    members: number;
+    projects: number;
+    years: number;
+    awards: number;
+  };
+}
+
 const Hero = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language as "uz" | "ru" | "en";
+
+  const { data: heroData } = useQuery({
+    queryKey: ["site-settings", "hero"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "hero")
+        .single();
+      if (error) throw error;
+      return data?.value as unknown as HeroSettings;
+    },
+  });
+
+  const title = heroData ? heroData[`title_${lang}` as keyof HeroSettings] as string || heroData.title_uz : "Yashil kelajak uchun birga";
+  const subtitle = heroData ? heroData[`subtitle_${lang}` as keyof HeroSettings] as string || heroData.subtitle_uz : t("hero.subtitle");
 
   const stats = [
-    { icon: Users, value: "500+", label: t("hero.stats.members") },
-    { icon: Leaf, value: "50+", label: t("hero.stats.projects") },
-    { icon: Calendar, value: "3+", label: t("hero.stats.years") },
-    { icon: Award, value: "25+", label: t("hero.stats.awards") },
+    { icon: Users, value: `${heroData?.stats?.members || 500}+`, label: t("hero.stats.members") },
+    { icon: Leaf, value: `${heroData?.stats?.projects || 50}+`, label: t("hero.stats.projects") },
+    { icon: Calendar, value: `${heroData?.stats?.years || 3}+`, label: t("hero.stats.years") },
+    { icon: Award, value: `${heroData?.stats?.awards || 25}+`, label: t("hero.stats.awards") },
   ];
 
   // Floating space objects
@@ -101,9 +135,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <span>Yashil </span>
-              <span className="text-gradient">kelajak </span>
-              <span>uchun birga</span>
+              <span className="text-gradient">{title}</span>
             </motion.h1>
 
             <motion.p 
@@ -112,7 +144,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              {t("hero.subtitle")}
+              {subtitle}
             </motion.p>
 
             <motion.div 

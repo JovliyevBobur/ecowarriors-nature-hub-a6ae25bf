@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Newspaper, Calendar, Image, Users, LogOut, Home } from "lucide-react";
+import { LayoutDashboard, Newspaper, Calendar, Image, Users, LogOut, Home, Settings, Sparkles } from "lucide-react";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { useTranslation } from "react-i18next";
 import ecoLogo from "@/assets/eco-logo.png";
@@ -10,6 +10,8 @@ import AdminNews from "./AdminNews";
 import AdminEvents from "./AdminEvents";
 import AdminGallery from "./AdminGallery";
 import AdminTeachers from "./AdminTeachers";
+import AdminSettings from "./AdminSettings";
+import AdminFeatures from "./AdminFeatures";
 import DashboardHome from "./DashboardHome";
 
 const AdminDashboard = () => {
@@ -38,6 +40,8 @@ const AdminDashboard = () => {
     { path: "/admin/events", icon: Calendar, label: t("admin.events") },
     { path: "/admin/gallery", icon: Image, label: t("admin.gallery") },
     { path: "/admin/teachers", icon: Users, label: t("admin.teachers") },
+    { path: "/admin/features", icon: Sparkles, label: t("admin.features") },
+    { path: "/admin/settings", icon: Settings, label: t("admin.settings") },
   ];
 
   return (
@@ -90,6 +94,8 @@ const AdminDashboard = () => {
           <Route path="events" element={<AdminEvents />} />
           <Route path="gallery" element={<AdminGallery />} />
           <Route path="teachers" element={<AdminTeachers />} />
+          <Route path="features" element={<AdminFeatures />} />
+          <Route path="settings" element={<AdminSettings />} />
         </Routes>
       </main>
     </div>
