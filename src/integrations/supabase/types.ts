@@ -170,6 +170,75 @@ export type Database = {
         }
         Relationships: []
       }
+      site_features: {
+        Row: {
+          created_at: string
+          description_en: string | null
+          description_ru: string | null
+          description_uz: string
+          icon: string
+          id: string
+          published: boolean
+          sort_order: number
+          title_en: string | null
+          title_ru: string | null
+          title_uz: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description_en?: string | null
+          description_ru?: string | null
+          description_uz: string
+          icon: string
+          id?: string
+          published?: boolean
+          sort_order?: number
+          title_en?: string | null
+          title_ru?: string | null
+          title_uz: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description_en?: string | null
+          description_ru?: string | null
+          description_uz?: string
+          icon?: string
+          id?: string
+          published?: boolean
+          sort_order?: number
+          title_en?: string | null
+          title_ru?: string | null
+          title_uz?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          created_at: string
+          id: string
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
       teachers: {
         Row: {
           bio_en: string | null
