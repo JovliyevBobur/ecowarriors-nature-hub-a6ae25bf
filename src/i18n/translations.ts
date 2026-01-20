@@ -57,9 +57,11 @@ export const translations = {
         },
       },
       news: {
-        title: "Yangiliklar",
-        subtitle: "So'nggi yangiliklar va voqealar",
-        readMore: "Batafsil",
+        badge: "Yangiliklar",
+        title: "So'nggi",
+        titleHighlight: "yangiliklar",
+        subtitle: "Faoliyatimiz va amalga oshirilayotgan loyihalarimiz haqida eng so'nggi ma'lumotlar",
+        readMore: "Batafsil o'qish",
         categories: {
           all: "Barchasi",
           events: "Tadbirlar",
@@ -84,8 +86,11 @@ export const translations = {
         markIncomplete: "Bajarilmagan deb belgilash",
       },
       gallery: {
-        title: "Galereya",
-        subtitle: "Bizning faoliyatimiz suratlar orqali",
+        badge: "Galereya",
+        title: "Foto",
+        titleHighlight: "galereya",
+        subtitle: "Faoliyatimiz davomida suratga olingan eng yaxshi lahzalar",
+        all: "Barchasi",
         categories: {
           all: "Barchasi",
           treePlanting: "Daraxt ekish",
@@ -239,9 +244,11 @@ export const translations = {
         },
       },
       news: {
-        title: "Новости",
-        subtitle: "Последние новости и события",
-        readMore: "Подробнее",
+        badge: "Новости",
+        title: "Последние",
+        titleHighlight: "новости",
+        subtitle: "Самая актуальная информация о нашей деятельности и проектах",
+        readMore: "Читать далее",
         categories: {
           all: "Все",
           events: "Мероприятия",
@@ -266,8 +273,11 @@ export const translations = {
         markIncomplete: "Отметить как невыполненное",
       },
       gallery: {
-        title: "Галерея",
-        subtitle: "Наша деятельность в фотографиях",
+        badge: "Галерея",
+        title: "Фото",
+        titleHighlight: "галерея",
+        subtitle: "Лучшие моменты нашей деятельности",
+        all: "Все",
         categories: {
           all: "Все",
           treePlanting: "Посадка деревьев",
@@ -419,9 +429,11 @@ export const translations = {
         },
       },
       news: {
-        title: "News",
-        subtitle: "Latest news and events",
-        readMore: "Read More",
+        badge: "News",
+        title: "Latest",
+        titleHighlight: "news",
+        subtitle: "The latest information about our activities and projects",
+        readMore: "Read more",
         categories: {
           all: "All",
           events: "Events",
@@ -446,8 +458,11 @@ export const translations = {
         markIncomplete: "Mark as incomplete",
       },
       gallery: {
-        title: "Gallery",
-        subtitle: "Our activities in photos",
+        badge: "Gallery",
+        title: "Photo",
+        titleHighlight: "gallery",
+        subtitle: "The best moments from our activities",
+        all: "All",
         categories: {
           all: "All",
           treePlanting: "Tree Planting",
