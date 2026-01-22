@@ -95,7 +95,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Manzil</h3>
                       <p className="text-muted-foreground">
-                        Toshkent shahri, Chilonzor tumani, Qatortol ko'chasi 15-uy
+                        Xorazm viloyat, Tuproqqal'a tuman, Sharlauq MFY, Vatanparvar ko'chasi 14-uy
                       </p>
                     </div>
                   </div>
@@ -106,8 +106,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Telefon</h3>
-                      <p className="text-muted-foreground">+998 90 123 45 67</p>
-                      <p className="text-muted-foreground">+998 91 987 65 43</p>
+                      <p className="text-muted-foreground">+998 (93) 005-42-87</p>
+                      <p className="text-muted-foreground">+998 (97) 525-27-54</p>
                     </div>
                   </div>
                   
@@ -117,21 +117,26 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                      <p className="text-muted-foreground">info@ecowarriors.uz</p>
-                      <p className="text-muted-foreground">support@ecowarriors.uz</p>
+                      <p className="text-muted-foreground">jbobur2o1o@gmail.com</p>
+                      <p className="text-muted-foreground">jbobur005@gmail.com</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Map placeholder */}
-              <div className="aspect-video bg-gradient-nature rounded-2xl overflow-hidden relative shadow-card">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center text-primary-foreground">
-                    <MapPin className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                    <p className="opacity-70">Xarita</p>
-                  </div>
-                </div>
+              {/* Google Map */}
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-card">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12345.678!2d60.8!3d41.55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDMzJzAwLjAiTiA2MMKwNDgnMDAuMCJF!5e0!3m2!1sen!2s!4v1234567890"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Tuproqqal'a, Xorazm viloyati"
+                  className="w-full h-full"
+                ></iframe>
               </div>
             </div>
           </div>
