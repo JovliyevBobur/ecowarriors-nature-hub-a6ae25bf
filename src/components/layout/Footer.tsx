@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Instagram, Youtube } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import ecoLogo from "@/assets/eco-logo.png";
@@ -93,25 +93,31 @@ const Footer = () => {
             <h4 className="text-lg font-display font-semibold mb-4 text-foreground">{t("footer.followUs")}</h4>
             <div className="flex gap-3">
               <motion.a
-                href="#"
+                href="https://t.me/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 whileHover={{ scale: 1.1 }}
               >
-                <Facebook className="h-5 w-5" />
+                <Send className="h-5 w-5" />
               </motion.a>
               <motion.a
-                href="#"
+                href="https://instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 whileHover={{ scale: 1.1 }}
               >
                 <Instagram className="h-5 w-5" />
               </motion.a>
               <motion.a
-                href="#"
+                href="https://youtube.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 whileHover={{ scale: 1.1 }}
               >
-                <Twitter className="h-5 w-5" />
+                <Youtube className="h-5 w-5" />
               </motion.a>
             </div>
           </motion.div>
