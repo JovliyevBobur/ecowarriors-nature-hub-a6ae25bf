@@ -70,15 +70,15 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 flex-shrink-0 text-primary" />
-                <span>Toshkent shahri, Chilonzor tumani</span>
+                <span>Xorazm viloyati, Tuproqqal'a tumani</span>
               </li>
               <li className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 flex-shrink-0 text-primary" />
-                <span className="font-mono">+998 90 123 45 67</span>
+                <span className="font-mono">+998 (93) 005-42-87</span>
               </li>
               <li className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 flex-shrink-0 text-primary" />
-                <span>info@ecowarriors.uz</span>
+                <span>jbobur2o1o@gmail.com</span>
               </li>
             </ul>
           </motion.div>
