@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Send, Instagram, Youtube } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import ecoLogo from "@/assets/eco-logo.png";
+import creatorAvatar from "@/assets/creator-avatar.png";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -123,8 +124,19 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border">
-          <p className="text-center text-sm text-muted-foreground">
+        <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-muted-foreground">Creator:</span>
+            <div className="flex items-center gap-2">
+              <img 
+                src={creatorAvatar} 
+                alt="Jovliyev Bobur" 
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="text-sm font-medium text-primary">Jovliyev Bobur</span>
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} EcoWarriors. {t("footer.rights")}
           </p>
         </div>
